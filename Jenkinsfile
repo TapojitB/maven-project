@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+	
+    tools {
+        maven 'localMaven'
+    }	
     stages {
        stage('Initialize') {
             steps {
@@ -9,7 +12,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-				echo 'Building..'
+		echo 'Building..'
                 sh 'mvn clean package'
             }
             post {
