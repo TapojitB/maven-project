@@ -26,10 +26,25 @@ pipeline {
                 echo 'Testing..'
             }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+	stage ('Deployments'){
+		parallel{
+			stage ('Static analysis'){
+				steps {
+					echo 'Running Checkstyle....'
+					build job: 'static analysis'
+
+				}
+			}
+
+			stage ("Deploy to Staging"){
+				steps {
+					echo 'Deploying to staging environment....'
+					build job: 'deploy-to-staging'
+
+				}
+			}
+		}
+	}
+		
     }
 }
