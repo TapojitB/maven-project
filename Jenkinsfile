@@ -14,11 +14,11 @@ pipeline {
 			echo 'Building..'		
 			bat 'mvn clean package' 
 			bat "docker image build -t tapojitb/simple-webapp:${env.BUILD_ID} ."
-		    	bat "docker container stop simple-webapp-a-${env.BUILD_ID}"
-		    	bat "docker container rm simple-webapp-a-${env.BUILD_ID}"
+		    	bat "docker container stop simple-webapp-a-${env.BUILD_ID-1}"
+		    	bat "docker container rm simple-webapp-a-${env.BUILD_ID-1}"
 		    	bat "docker container run -d  --name simple-webapp-a-${env.BUILD_ID} -p 8181:8080 tapojitb/simple-webapp:${env.BUILD_ID}"
-		    	bat "docker container stop simple-webapp-b-${env.BUILD_ID}"
-		    	bat "docker container rm simple-webapp-b-${env.BUILD_ID}"
+		    	bat "docker container stop simple-webapp-b-${env.BUILD_ID-1}"
+		    	bat "docker container rm simple-webapp-b-${env.BUILD_ID-1}"
 		    	bat "docker container run -d  --name simple-webapp-b-${env.BUILD_ID} -p 8282:8080 tapojitb/simple-webapp:${env.BUILD_ID}"
             }
             post {
