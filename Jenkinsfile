@@ -14,8 +14,8 @@ pipeline {
 			echo 'Building..'		
 			bat 'mvn clean package' 
 			bat "docker image build -t tapojitb/simple-webapp:${env.BUILD_ID} ."
-		    	bat "docker container run -p 8181:8080 tapojitb/simple-webapp:${env.BUILD_ID} --rm tapojitb/simple-webapp:${env.BUILD_ID}"
-		    	bat "docker container run -p 8282:8080 tapojitb/simple-webapp:${env.BUILD_ID} --rm tapojitb/simple-webapp:${env.BUILD_ID}"
+		    	bat "docker container run -p 8181:8080 tapojitb/simple-webapp:${env.BUILD_ID}"
+		    	bat "docker container run -p 8282:8080 tapojitb/simple-webapp:${env.BUILD_ID}"
             }
             post {
                 success {
