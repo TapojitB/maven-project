@@ -12,12 +12,7 @@ pipeline {
         stage('Build') {
             steps {
 			echo 'Building..'		
-				if (isUnix()) {
-					sh 'mvn clean package'
-				} else {
-					bat 'mvn clean package'
-				}
-                
+			bat 'mvn clean package'                
             }
             post {
                 success {
