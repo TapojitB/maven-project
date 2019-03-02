@@ -12,7 +12,8 @@ pipeline {
         stage('Build') {
             steps {
 			echo 'Building..'		
-			bat 'mvn clean package'                
+			bat 'mvn clean package' 
+			bat "docker image build -t tapojitb/simple-webapp:${env.BUILD_ID} ."
             }
             post {
                 success {
