@@ -14,7 +14,7 @@ pipeline {
 			echo 'Building..'		
 			bat 'mvn clean package' 
 			bat "docker image build -t tapojitb/simple-webapp:${env.BUILD_ID} ."
-		        bat 'docker rm $(docker stop $(docker ps -a -q --filter ancestor=simple-webapp --format="{{.ID}}"))'
+		        bat 'docker rm $(docker stop $(docker ps --filter "name=simple-webapp")'
 		    	bat "docker container run -d  --name simple-webapp-a-${env.BUILD_ID} -p 8181:8080 tapojitb/simple-webapp:${env.BUILD_ID}"
 		     	
 		    	bat "docker container run -d  --name simple-webapp-b-${env.BUILD_ID} -p 8282:8080 tapojitb/simple-webapp:${env.BUILD_ID}"
