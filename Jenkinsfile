@@ -13,6 +13,8 @@ pipeline {
             steps {
 			echo 'Building..'		
 			bat 'mvn clean package' 
+		    	bat "docker stop simple-webapp-staging simple-webapp-production"
+		    	bat "docker rm simple-webapp-staging simple-webapp-production"
 			bat "docker image build -t tapojitb/simple-webapp:${env.BUILD_ID} ."		    	
 		    	bat "docker container run -d  --name simple-webapp-staging -p 8181:8080 tapojitb/simple-webapp:${env.BUILD_ID}"		     	
 		    	bat "docker container run -d  --name simple-webapp-production -p 8282:8080 tapojitb/simple-webapp:${env.BUILD_ID}"
